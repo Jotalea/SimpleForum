@@ -4,7 +4,12 @@ $jsonFile = './data.json';
 $data = json_decode(file_get_contents($jsonFile), true);
 
 // Get the 'id' param from URL
-$id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+
+// Previous method searched per number ID
+// $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+
+// New method searches for string ID
+$id = isset($_GET['id']) ? $_GET['id'] : '';
 
 // Search for an article with the specified ID
 $article = null;
