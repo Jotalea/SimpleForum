@@ -1,6 +1,6 @@
 <?php
 
-$ownerName = 'YOUR NAME'
+$ownerName = 'YOUR NAME';
 
 // Read the JSON file
 $data = json_decode(file_get_contents('./data.json'), true);
