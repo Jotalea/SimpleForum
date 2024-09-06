@@ -1,6 +1,6 @@
 <?php
 
-$ownerName = 'YOUR NAME';
+$ownerName = 'Jotalea';
 
 // Read the JSON file
 //$data = json_decode(file_get_contents('./data.json'), true);
@@ -91,10 +91,30 @@ $currentUrl = $currentMethod . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title><?php echo $ownerName; ?>'s blog</title>
+    <title><?php echo $ownerName; ?>'s experiment</title>
+    <!--
+    <link rel="stylesheet" href="styles.css">
+    -->
 </head>
 <body>
-    <h1>Welcome to <?php echo $ownerName; ?>'s blog</h1>
+    <h1>Welcome to <?php echo $ownerName; ?>'s experiment</h1>
+
+    <section>
+        <form method="post" enctype="multipart/form-data">
+            <label for="title">Title:</label><br>
+            <textarea name="title" id="title" rows="1" cols="50" required></textarea><br><br>
+    
+            <label for="content">Content:</label><br>
+            <textarea name="content" id="content" rows="4" cols="50" required></textarea><br><br>
+    
+            <label for="image">Upload Image:</label>
+            <input type="file" name="image" id="image" accept="image/*"><br><br>
+    
+            <button type="submit" name="post">Post</button>
+        </form>
+    </section>
+    
+    <hr>
 
     <?php
     // Fetch data from SQLite
@@ -102,14 +122,14 @@ $currentUrl = $currentMethod . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST
 
     if ($result) {
         while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
-            echo '<br>';
-            if ($row['image']) {
-                echo '<img src="' . htmlspecialchars($row['image']) . '" alt="Post Image" style="max-width: 360px; height: auto;">';
-            }
+            echo '<section>';
             echo '<h2>' . htmlspecialchars($row['title']) . '</h2>';
             echo '<p><small>' . date("d/m/Y", htmlspecialchars($row['time'])) . '</small></p>';
+            if ($row['image']) {
+                echo '<a href="' . htmlspecialchars($row['image']) . '"><img src="' . htmlspecialchars($row['image']) . '" alt="Post Image" style="max-width: 50%; height: auto;"></a>';
+            }
             echo '<p>' . substr(htmlspecialchars($row['content']), 0, 77) . '... <a href="' . htmlspecialchars($row['link']) . '">Read more</a></p>';
-            echo '<br>';
+            echo '</section>';
         }
     } else {
         echo '<br><p>There are no posts yet.</p><br>';
@@ -131,21 +151,6 @@ $currentUrl = $currentMethod . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST
         echo '<br><p>There are no posts yet.</p><br>';
     }
     */
-    ?>
-
-    <br>
-    
-    <form method="post" enctype="multipart/form-data">
-        <label for="title">Title:</label><br>
-        <textarea name="title" id="title" rows="1" cols="50" required></textarea><br><br>
-
-        <label for="content">Content:</label><br>
-        <textarea name="content" id="content" rows="4" cols="50" required></textarea><br><br>
-
-        <label for="image">Upload Image:</label>
-        <input type="file" name="image" id="image" accept="image/*"><br><br>
-
-        <button type="submit" name="post">Post</button>
-    </form>
+    ?>    
 </body>
 </html>
